@@ -1,0 +1,34 @@
+{
+  "name": "tesla-clone",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "@popperjs/core": "^2.11.8",
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "element-plus": "^2.9.4",
+    "primevue": "^3.52.0",
+    "vue": "^3.4.21",
+    "vue-i18n": "^11.1.1",
+    "@zxing/library": "^0.21.3",
+    "webrtc-adapter": "^9.0.1"
+  },
+  "devDependencies": {
+    "@iconify-json/ep": "^1.2.2",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "less": "^4.2.2",
+    "sass-embedded": "^1.85.0",
+    "terser": "^5.39.0",
+    "unplugin-auto-import": "^19.1.0",
+    "unplugin-icons": "^22.1.0",
+    "unplugin-vue-components": "^28.4.0",
+    "vite": "^5.2.0"
+  }
+}
