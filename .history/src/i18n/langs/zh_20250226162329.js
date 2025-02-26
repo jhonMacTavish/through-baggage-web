@@ -2,7 +2,7 @@
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-02-24 00:23:07
  * @LastEditors: jhon.mactavish96 jhon.mactavish96@gmail.com
- * @LastEditTime: 2025-02-26 17:30:40
+ * @LastEditTime: 2025-02-26 16:23:29
  * @FilePath: \through_baggage_webt:\Projects\VS Code\vue-bootstrap-master\src\i18n\langs\zh.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -25,7 +25,7 @@ export default {
         0: { str1: "暂无数据", str2: "" },
         1: { str1: "您的行李已确认安全，", str2: "请通行" },
         2: { str1: "您没有托运行李，", str2: "请通行" },
-        3: { str1: "请联系航空公司工作人员协助处理", str2: "" },
+        3: { str1: "很抱歉，未能查询到您的，", str2: "行程及行李信息" },
         4: { str1: "您的行李尚未完全通过检查，", str2: "请耐心等待" },
         5: { str1: "未查询到行李信息，\n请核实条码号是否正确", str2: "" },
       },
