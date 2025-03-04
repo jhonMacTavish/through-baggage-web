@@ -2,7 +2,7 @@
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-02-23 20:06:20
  * @LastEditors: john_mactavish 981192661@qq.com
- * @LastEditTime: 2025-03-03 15:28:31
+ * @LastEditTime: 2025-03-03 15:24:44
  * @FilePath: \through_baggage_webt:\Projects\VS Code\vue-bootstrap-master\src\components\Main.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -165,17 +165,6 @@ const secondes = ref(5);
 const loading = ref(false);
 const timer = ref(0);
 
-// 表单验证规则
-const createValidator = (pattern: RegExp, errorMsg: string) => {
-  return (_rule: any, value: string, callback: any) => {
-    if (!pattern.test(value)) {
-      callback(new Error(errorMsg));
-    } else {
-      callback();
-    }
-  };
-};
-
 const ruleForm = reactive({
   pptNo: "",
   fltNo: "",
@@ -222,6 +211,16 @@ const rules: FormRules<typeof ruleForm> = {
   ],
 };
 
+// 表单验证规则
+const createValidator = (pattern: RegExp, errorMsg: string) => {
+  return (_rule: any, value: string, callback: any) => {
+    if (!pattern.test(value)) {
+      callback(new Error(errorMsg));
+    } else {
+      callback();
+    }
+  };
+};
 
 const changeLang = (type: string) => {
   console.log(type);
@@ -286,12 +285,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
               bagStat.value = 2;
               console.log(bagStat.value);
               break;
-            case 'NO_TC':
-              bagStat.value = 3;
-              console.log(bagStat.value);
-              break;
             case 'NO_RESULT':
-              bagStat.value = 4;
+              bagStat.value = 3;
               console.log(bagStat.value);
               break;
             case 'PROCESSING':
@@ -318,11 +313,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
               break;
           }
         } else {
-          // bagStyle.value = "wait";
-          // bagStat.value = 5;
-          // console.log(bagStat.value);
-          loading.value = false;
-          ElMessage.error('server error');
+          bagStyle.value = "wait";
+          bagStat.value = 5;
+          console.log(bagStat.value);
         }
       });
     } catch (error) {

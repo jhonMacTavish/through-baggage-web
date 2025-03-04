@@ -23,7 +23,7 @@ export default {
       stateTitle: "Baggage status",
       stateInfo: {
         0: { str1: "No data", str2: "" },
-        1: { str1: "Your baggage has been confirmed safe,", str2: "Please pass" },
+        1: { str1: "Your luggage has been confirmed safe,", str2: "Please pass" },
         2: { str1: "You have no checked baggage,", str2: "Please pass" },
         3: { str1: "Please contact the airline staff for assistance", str2: "" },
         4: { str1: "Your baggage has not yet been fully screened,", str2: "Please wait" },

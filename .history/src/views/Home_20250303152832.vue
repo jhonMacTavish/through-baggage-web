@@ -286,12 +286,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
               bagStat.value = 2;
               console.log(bagStat.value);
               break;
-            case 'NO_TC':
-              bagStat.value = 3;
-              console.log(bagStat.value);
-              break;
             case 'NO_RESULT':
-              bagStat.value = 4;
+              bagStat.value = 3;
               console.log(bagStat.value);
               break;
             case 'PROCESSING':

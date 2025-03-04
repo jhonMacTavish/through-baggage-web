@@ -2,7 +2,7 @@
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-02-23 20:06:20
  * @LastEditors: john_mactavish 981192661@qq.com
- * @LastEditTime: 2025-03-03 15:28:31
+ * @LastEditTime: 2025-02-28 13:01:01
  * @FilePath: \through_baggage_webt:\Projects\VS Code\vue-bootstrap-master\src\components\Main.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -105,8 +105,8 @@
             </el-input>
           </el-form-item>
           <el-form-item size="large">
-            <el-button :class="`w-100 ${!clickable ? 'submitBtn' : ''}`" :disabled="clickable"
-              @click="submitForm(ruleFormRef)" @keyup.enter.native="submitForm(ruleFormRef)">
+            <el-button :class="`w-100 ${!clickable?'submitBtn':''}`" :disabled="clickable" @click="submitForm(ruleFormRef)"
+              @keyup.enter.native="submitForm(ruleFormRef)">
               <text :style="`
     letter-spacing: ${locale == 'zh' ? '4px' : ''};`">{{ $t("messages.userText.formButton") }} {{ !clickable ? '' : `
                 ${secondes} s` }}</text>
@@ -165,6 +165,29 @@ const secondes = ref(5);
 const loading = ref(false);
 const timer = ref(0);
 
+const changeLang = (type: string) => {
+  console.log(type);
+  locale.value = type;
+  localStorage.setItem("lang", type);
+
+  rules.pptNo[0].validator = createValidator(
+    /^[G|E|P|S|D|C]\d{8}$/,
+    t("messages.userText.validateText.passportNo")
+  );
+  rules.fltNo[0].validator = createValidator(
+    /^[A-Z]{2}\d{3,4}$/,
+    t("messages.userText.validateText.flightNo")
+  );
+  rules.setNo[0].validator = createValidator(
+    /^\d{1,3}[A-Z]$/,
+    t("messages.userText.validateText.seatNo")
+  );
+  rules.bagNo[0].validator = createValidator(
+    /^\d{10}$/,
+    t("messages.userText.validateText.baggageNo")
+  );
+};
+
 // 表单验证规则
 const createValidator = (pattern: RegExp, errorMsg: string) => {
   return (_rule: any, value: string, callback: any) => {
@@ -222,30 +245,6 @@ const rules: FormRules<typeof ruleForm> = {
   ],
 };
 
-
-const changeLang = (type: string) => {
-  console.log(type);
-  locale.value = type;
-  localStorage.setItem("lang", type);
-
-  rules.pptNo[0].validator = createValidator(
-    /^[G|E|P|S|D|C]\d{8}$/,
-    t("messages.userText.validateText.passportNo")
-  );
-  rules.fltNo[0].validator = createValidator(
-    /^[A-Z]{2}\d{3,4}$/,
-    t("messages.userText.validateText.flightNo")
-  );
-  rules.setNo[0].validator = createValidator(
-    /^\d{1,3}[A-Z]$/,
-    t("messages.userText.validateText.seatNo")
-  );
-  rules.bagNo[0].validator = createValidator(
-    /^\d{10}$/,
-    t("messages.userText.validateText.baggageNo")
-  );
-};
-
 const btnClickable = () => {
   loading.value = true;
   clickable.value = true;
@@ -264,12 +263,13 @@ const btnClickable = () => {
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
-  const valid = await formEl.validate();
-  if (valid) {
-    const { bagNo } = ruleForm;
-    const params = { bagNo };
-    btnClickable();
-    try {
+  try {
+    const valid = await formEl.validate();
+    if (valid) {
+      const { bagNo } = ruleForm;
+      const params = { bagNo };
+      btnClickable();
+
       await axios.get("/api/baggages/status", { params }).then((res) => {
         console.log(res.data);
         loading.value = false;
@@ -277,33 +277,20 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
         if (data.status === 200) {
           const status = data.data;
-          switch (status.baggageStatus) {
+          switch (status.baggageusStatus) {
             case 'SAFE':
               bagStat.value = 1;
-              console.log(bagStat.value);
               break;
             case 'NO_BAGGAGE':
               bagStat.value = 2;
-              console.log(bagStat.value);
-              break;
-            case 'NO_TC':
-              bagStat.value = 3;
-              console.log(bagStat.value);
               break;
             case 'NO_RESULT':
-              bagStat.value = 4;
-              console.log(bagStat.value);
+              bagStat.value = 3;
               break;
             case 'PROCESSING':
               bagStat.value = 4;
-              console.log(bagStat.value);
-              break;
-            case 'NO_RECORD':
-              bagStat.value = 5;
-              console.log(bagStat.value);
               break;
             default:
-              console.log("default");
               break;
           }
 
@@ -318,19 +305,16 @@ const submitForm = async (formEl: FormInstance | undefined) => {
               break;
           }
         } else {
-          // bagStyle.value = "wait";
-          // bagStat.value = 5;
-          // console.log(bagStat.value);
-          loading.value = false;
-          ElMessage.error('server error');
+          bagStyle.value = "wait";
+          bagStat.value = 5;
         }
       });
-    } catch (error) {
-      console.log("axios failed");
-      console.log('错误详情:', error);
-      loading.value = false;
-      ElMessage.error('server error');
     }
+  } catch (error) {
+    console.log("axios failed");
+    console.log('错误详情:', error);
+    loading.value = false;
+    ElMessage.error('server error');
   }
 };
 
@@ -363,17 +347,11 @@ onMounted(() => {
 
 :deep(.el-button.is-disabled) {
   border-radius: 12px;
-  border-color: #71d561 !important;
-  /* 重置为默认边框色 */
-  background-color: var(--el-button-bg-color, #9d9d9d) !important;
-  /* 重置为默认背景色 */
-  color: var(--el-button-text-color, #606266) !important;
-  /* 默认文字颜色 */
-  border-color: var(--el-button-border-color, #dcdfe6) !important;
-  opacity: 1 !important;
-  /* 取消透明度 */
-  cursor: not-allowed !important;
-  /* 可选：保留禁用光标 */
+  background-color: var(--el-button-bg-color, #9d9d9d) !important; /* 重置为默认背景色 */
+  color: var(--el-button-text-color, #606266) !important;       /* 默认文字颜色 */
+  border-color: var(--el-button-border-color, #dcdfe6) !important; 
+  opacity: 1 !important;          /* 取消透明度 */
+  cursor: not-allowed !important;  /* 可选：保留禁用光标 */
 }
 
 .pass {
