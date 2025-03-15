@@ -2,7 +2,7 @@
  * @Author: error: error: git config user.name & please set dead value or install git && error: git config user.email & please set dead value or install git & please set dead value or install git
  * @Date: 2025-02-23 20:06:20
  * @LastEditors: john_mactavish 981192661@qq.com
- * @LastEditTime: 2025-03-15 15:59:40
+ * @LastEditTime: 2025-03-15 15:58:05
  * @FilePath: \through_baggage_webt:\Projects\VS Code\vue-bootstrap-master\src\components\Main.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -45,9 +45,57 @@
       <div class="p-4 form-bg">
         <h6 class="form-title">{{ $t("messages.userText.formTitle") }}</h6>
         <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="auto">
+          <!-- <el-form-item
+            class="item-marginBt"
+            size="large"
+            :label="$t('messages.userText.formInfo.passportNo')"
+            prop="pptNo"
+          >
+            <el-input
+              v-model="ruleForm.pptNo"
+              maxlength="9"
+              :formatter="(value) => value.toUpperCase()"
+            >
+              <template #prefix>
+                <i-ep-Postcard />
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item
+            class="item-marginBt"
+            size="large"
+            :label="$t('messages.userText.formInfo.flightNo')"
+            prop="fltNo"
+          >
+            <el-input
+              v-model="ruleForm.fltNo"
+              maxlength="6"
+              :formatter="(value) => value.toUpperCase()"
+            >
+              <template #prefix>
+                <i-ep-Calendar />
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item
+            class="item-marginBt"
+            size="large"
+            :label="$t('messages.userText.formInfo.seatNo')"
+            prop="setNo"
+          >
+            <el-input
+              v-model="ruleForm.setNo"
+              maxlength="4"
+              :formatter="(value) => value.toUpperCase()"
+            >
+              <template #prefix>
+                <i-ep-PriceTag />
+              </template>
+            </el-input>
+          </el-form-item> -->
           <el-form-item class="item-marginBt" size="large" :label="$t('messages.userText.formInfo.baggageNo')"
             prop="bagNo">
-            <el-input v-model="ruleForm.bagNo" maxlength="10" minlength="6" :formatter="(value) => value.toUpperCase()">
+            <el-input v-model="ruleForm.bagNo" maxlength="10" :formatter="(value) => value.toUpperCase()">
               <template #prefix>
                 <i-ep-Suitcase />
               </template>
