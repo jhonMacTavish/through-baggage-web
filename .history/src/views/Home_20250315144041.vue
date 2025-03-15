@@ -134,7 +134,7 @@
     </div>
   </section>
 
-  <footer class="p-4 text-center w-100">
+  <footer class="p-4 text-center w-100" style="background-color: aqua;">
     <div class="container">
       <h6>{{ $t("messages.prompText.pageFooter") }}</h6>
     </div>
@@ -453,6 +453,7 @@ onMounted(() => {
 
 .flex1 {
   flex: 1;
+  background-color: red;
 }
 
 footer {
